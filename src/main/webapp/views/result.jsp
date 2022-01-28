@@ -18,10 +18,15 @@
 	
 	 Added student is : ${studentObject}
 	<br><br>
-  -->  
+  
     
     <h1>Greetings</h1>
-    Welcome back ${greetStudent}
+    Welcome back ${greetStudent}    
+  
+  <h1>Student list:</h1>
+    All students are ${studentList}--> 
+  <h1>Enter id of the student:</h1>
+    Student you search ${specificStudent}
   
 </body>
 

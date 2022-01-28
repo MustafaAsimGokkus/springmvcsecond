@@ -1,17 +1,23 @@
 package com.bootcamptechpred.springmvcsecond;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+
 
 @Controller
 public class ResultController {
@@ -185,16 +191,88 @@ public class ResultController {
 	
 	//How to use GET Method
 	
+	//1.way
+	/*
+	 1)Inside the method paranthesis type  "method=Requestmethod.GET
+	 2)Go to index.jsp and add method="GET" inside the form tag
+	 3)Go to result.jsp file and type ==>${studentList}
+	 */
+//	@RequestMapping(value="getStudent", method =RequestMethod.GET)
+//	public String getStudent (Model m) {
+//		
+//		List<Student> students = new ArrayList<>();
+//	
+//	    students.add(new Student(101 , "Ali Can"));
+//		students.add(new Student(102 , "Veli Can"));
+//		students.add(new Student(103 , "Mary Star"));
+//		students.add(new Student(104 , "Tom Hanks"));
+//		students.add(new Student(105 , "Angie Ocean"));
+//		
+//		m.addAttribute("studentList" , students);
+//		return "result";
+//		
+//	}
 	
 	
+	//1.way
+		/*
+		 1)Inside the method paranthesis type  "method=Requestmethod.GET
+		 2)Go to index.jsp and add method="GET" inside the form tag
+		 3)Go to result.jsp file and type ==>${studentList}
+		 */
+//	@GetMapping("getStudent")
+//	public String getStudent (Model m) {
+//	
+//	List<Student> students = new ArrayList<>();
+//	
+//	    students.add(new Student(101 , "Ali Can"));
+//		students.add(new Student(102 , "Veli Can"));
+//		students.add(new Student(103 , "Mary Star"));
+//		students.add(new Student(104 , "Tom Hanks"));
+//		students.add(new Student(105 , "Angie Ocean"));
+//		
+//		m.addAttribute("studentList" , students);
+//		return "result";
+//	}	
 	
+	//How to get a specific student
+	@GetMapping("getStudentWithId")
+	public String getStudent (@RequestParam("id") int id, Model m) {
 	
+	List<Student> students = new ArrayList<>();
 	
-	
-	
-	
-	
-	
-	
-	
+	    students.add(new Student(101 , "Ali Can"));
+		students.add(new Student(102 , "Veli Can"));
+		students.add(new Student(103 , "Mary Star"));
+		students.add(new Student(104 , "Tom Hanks"));
+		students.add(new Student(105 , "Angie Ocean"));
+		
+		int idx= -1; //index value can't be negative but if we put 0 it is the first idx, -1 is afalde idx
+		
+		for(Student w:students) {
+			if(id ==w.getId()) {
+				idx = students.indexOf(w);
+			}
+		}
+		
+		if(idx== -1) {//means there is no such id
+			m.addAttribute("specificStudent" , "There is no such ID");
+		}else {
+			m.addAttribute("specificStudent" ,  students.get(idx));
+		}
+		
+				
+		return "result";
+	}
 }
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
